@@ -85,4 +85,19 @@ class LectureServiceTest {
         // Then
         assertThat(responseLectureDtos).size().isEqualTo(3);
     }
+
+    @Test
+    @DisplayName("수강 가능한 강의 목록을 가져온다.")
+    void show_avaliable_lectures() {
+        // Given
+        long studentId = 1L;
+        long lectureId = 1L;
+
+        // When
+        lectureService.enroll(lectureId, studentId);
+        List<ResponseLectureDto> responseLectureDtos = lectureService.showAvailableLectures(studentId);
+
+        // Then
+        assertThat(responseLectureDtos).size().isEqualTo(1);
+    }
 }

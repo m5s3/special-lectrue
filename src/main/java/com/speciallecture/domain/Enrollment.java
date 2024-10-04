@@ -29,11 +29,11 @@ public class Enrollment {
     private LocalDateTime enrollmentDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="LECTURE_ID")
+    @JoinColumn(name="lecture_id")
     private Lecture lecture;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="STUDENT_ID")
+    @JoinColumn(name="student_id")
     private Student student;
 
     @Builder

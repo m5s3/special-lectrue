@@ -5,8 +5,16 @@ spring:
     init:
       mode: never
   jpa:
-    show-sql: true
     generate-ddl: true
     hibernate:
       ddl-auto: create-drop
     defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+    show-sql: true
+  logging:
+    level.org.hibernate:
+      SQL: DEBUG
+      orm.jdbc.bind: TRACE

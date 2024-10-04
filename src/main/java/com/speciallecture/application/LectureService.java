@@ -7,6 +7,7 @@ import com.speciallecture.domain.Student;
 import com.speciallecture.infrastucture.EnrollmentRepository;
 import com.speciallecture.infrastucture.LectureRepository;
 import com.speciallecture.infrastucture.StudentRepository;
+import com.speciallecture.infrastucture.dto.EnrollmentDto;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,5 +39,23 @@ public class LectureService {
         List<Lecture> lectures = lectureRepository.findAll();
         return lectures.stream().map(ResponseLectureDto::fromEntity)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ResponseLectureDto> showAvailableLectures(long userId) {
+        Student student = studentRepository.findById(userId)
+                .orElseThrow(IllegalArgumentException::new);
+        List<Lecture> lectures = lectureRepository.findAvailableLectures();
+        List<Long> lectureIds = lectures.stream().map(Lecture::getId)
+                .toList();
+        List<Long> enrolledLecturesIds = enrollmentRepository.findByStudent(lectureIds, student.getId())
+                .stream()
+                .map(EnrollmentDto::fromTuple)
+                .map(EnrollmentDto::lectureId)
+                .toList();
+
+        return lectures.stream().filter(lecture -> !enrolledLecturesIds.contains(lecture.getId()))
+                .map(ResponseLectureDto::fromEntity)
+                .toList();
     }
 }
