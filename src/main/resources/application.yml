@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: special-lecture
+  sql:
+    init:
+      mode: never
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
