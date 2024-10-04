@@ -1,6 +1,9 @@
 INSERT INTO lecture(id, title, lecturer, start_date, end_date, capacity) VALUES (default, 'SPRING JPA', 'test1', '2024-10-01 00:00:00', '2024-10-30 00:00:00', 30);
 INSERT INTO lecture(id, title, lecturer, start_date, end_date, capacity) VALUES (default, 'SPRING WEB', 'test1', '2024-10-01 00:00:00', '2024-10-30 00:00:00', 30);
 INSERT INTO lecture(id, title, lecturer, start_date, end_date, capacity) VALUES (default, 'SPRING TEST', 'test2', '2024-09-01 00:00:00', '2024-09-10 00:00:00', 30);
+INSERT INTO lecture(id, title, lecturer, start_date, end_date, capacity) VALUES (default, 'SPRING JPA 2', 'test2', '2024-10-04 00:00:00', '2024-10-30 00:00:00', 30);
+INSERT INTO lecture(id, title, lecturer, start_date, end_date, capacity) VALUES (default, 'SPRING JPA 3', 'test2', '2024-10-15 00:00:00', '2024-10-30 00:00:00', 30);
+INSERT INTO lecture(id, title, lecturer, start_date, end_date, capacity) VALUES (default, 'SPRING JPA 4', 'test2', '2024-10-16 00:00:00', '2024-10-30 00:00:00', 30);
 insert into student (id, name) values (default, 'Edin Bernhardi');
 insert into student (id, name) values (default, 'Ariela Richard');
 insert into student (id, name) values (default, 'Dotti Paragreen');

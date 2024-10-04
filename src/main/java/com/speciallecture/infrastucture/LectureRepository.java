@@ -1,7 +1,7 @@
 package com.speciallecture.infrastucture;
 
 import com.speciallecture.domain.Lecture;
-import com.speciallecture.domain.Student;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,4 +11,5 @@ public interface LectureRepository {
     List<Lecture> findAll();
 
     List<Lecture> findAvailableLectures();
+    List<Lecture> findLecturesByStartDateIsLessThanEqualAndEndDateIsGreaterThan(LocalDateTime date, LocalDateTime now);
 }

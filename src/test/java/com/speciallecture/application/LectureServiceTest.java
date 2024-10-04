@@ -10,6 +10,9 @@ import com.speciallecture.infrastucture.EnrollmentRepository;
 import com.speciallecture.infrastucture.LectureRepository;
 import com.speciallecture.infrastucture.StudentRepository;
 import com.speciallecture.utils.DatabaseCleanup;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -83,7 +86,7 @@ class LectureServiceTest {
         responseLectureDtos.forEach(System.out::println);
 
         // Then
-        assertThat(responseLectureDtos).size().isEqualTo(3);
+        assertThat(responseLectureDtos).size().isEqualTo(6);
     }
 
     @Test
@@ -98,7 +101,7 @@ class LectureServiceTest {
         List<ResponseLectureDto> responseLectureDtos = lectureService.showAvailableLectures(studentId);
 
         // Then
-        assertThat(responseLectureDtos).size().isEqualTo(1);
+        assertThat(responseLectureDtos).size().isEqualTo(2);
     }
 
     @Test
@@ -114,5 +117,22 @@ class LectureServiceTest {
         // Then
         assertThatThrownBy(() -> lectureService.enroll(studentId, lectureId)).isInstanceOf(
                 IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("날짜 검색으로 수강 신청 가능한 강의를 가져온다.")
+    void show_lectures_by_date() {
+        // Given
+        long studentId = 1L;
+        long lectureId = 1L;
+
+        // When
+        lectureService.enroll(studentId, lectureId);
+        List<ResponseLectureDto> responseLectureDtos = lectureService.showAvailableLecturesFilteredByDate(1L,
+                LocalDateTime.of(2024, 10, 2, 0, 0, 0));
+
+        // Then
+        responseLectureDtos.forEach(responseLectureDto -> log.info("responseLectureDto: {}", responseLectureDto));
+        assertThat(responseLectureDtos).size().isEqualTo(1);
     }
 }
