@@ -3,6 +3,7 @@ package com.speciallecture.domain;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -53,6 +54,15 @@ class LectureTest {
         AtomicInteger countOfEnrollment = new AtomicInteger();
         // When & Then
         assertThatThrownBy(() -> 강의.enroll(new Student(1L), countOfEnrollment.get(), LocalDateTime.now().plusDays(31)))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("수강 신청을 중복으로 등록을 하면 예외가 발생한다.")
+    void enroll_exception_duplication() {
+        Enrollment enroll = 강의.enroll(new Student(1L), 1, LocalDateTime.now());
+
+        assertThatThrownBy(() -> 강의.enroll(new Student(1L), List.of(enroll),  1, LocalDateTime.now()))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

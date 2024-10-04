@@ -8,6 +8,7 @@ import com.speciallecture.infrastucture.EnrollmentRepository;
 import com.speciallecture.infrastucture.LectureRepository;
 import com.speciallecture.infrastucture.StudentRepository;
 import com.speciallecture.infrastucture.dto.EnrollmentDto;
+import jakarta.persistence.Tuple;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,7 +31,10 @@ public class LectureService {
         Student student = studentRepository.findById(userId)
                 .orElseThrow(IllegalArgumentException::new);
         int countOfEnrollment = enrollmentRepository.countEnrollmentByLecture(lecture);
-        Enrollment enroll = lecture.enroll(student, countOfEnrollment, LocalDateTime.now());
+        List<Enrollment> enrollments = enrollmentRepository.findEnrollmentsByLectureAndStudent(
+                lecture, student);
+
+        Enrollment enroll = lecture.enroll(student, enrollments, countOfEnrollment, LocalDateTime.now());
         enrollmentRepository.save(enroll);
     }
 

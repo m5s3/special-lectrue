@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -44,6 +45,19 @@ public class Lecture {
     public Enrollment enroll(Student student, int countOfEnrollment, LocalDateTime enrollmentDate) {
         validateEnroll(countOfEnrollment, enrollmentDate);
         return Enrollment.enroll(this, student, enrollmentDate);
+    }
+
+    public Enrollment enroll(Student student, List<Enrollment> enrollments, int countOfEnrollment,
+            LocalDateTime enrollmentDate) {
+        validateEnroll(student, enrollments, countOfEnrollment, enrollmentDate);
+        return enroll(student, countOfEnrollment, enrollmentDate);
+    }
+
+    private void validateEnroll(Student student, List<Enrollment> enrollments, int countOfEnrollment, LocalDateTime enrollmentDate) {
+        if (!enrollments.isEmpty()) {
+            throw new IllegalArgumentException("해당 학생은 이미 강의를 신청 했습니다");
+        }
+        validateEnroll(countOfEnrollment, enrollmentDate);
     }
 
     private void validateEnroll(int countOfEnrollment, LocalDateTime enrollmentDate) {

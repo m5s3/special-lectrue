@@ -12,4 +12,5 @@ public interface EnrollmentRepository {
     boolean existsByLectureAndStudent(Lecture lecture, Student student);
     Enrollment save(Enrollment enrollment);
     List<Tuple> findByStudent(List<Long> lectureIds, long studentId);
+    List<Enrollment> findEnrollmentsByLectureAndStudent(Lecture lecture, Student student);
 }

@@ -100,4 +100,19 @@ class LectureServiceTest {
         // Then
         assertThat(responseLectureDtos).size().isEqualTo(1);
     }
+
+    @Test
+    @DisplayName("수강 신청을 중복으로하면 예외가 발생한다.")
+    void enroll_exception_duplication() {
+        // Given
+        long studentId = 1L;
+        long lectureId = 1L;
+
+        // When
+        lectureService.enroll(studentId, lectureId);
+
+        // Then
+        assertThatThrownBy(() -> lectureService.enroll(studentId, lectureId)).isInstanceOf(
+                IllegalArgumentException.class);
+    }
 }

@@ -13,6 +13,7 @@ public interface EnrollmentJpaRepository extends JpaRepository<Enrollment, Long>
 
     int countEnrollmentByLecture(Lecture lecture);
     boolean existsByLectureAndStudent(Lecture lecture, Student student);
+    List<Enrollment> findEnrollmentsByLectureAndStudent(Lecture lecture, Student student);
 
     @Override
     Enrollment save(Enrollment enrollment);
